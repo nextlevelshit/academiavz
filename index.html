@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>academiaVZ - Meine AcademiaVZ-Gruppe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'studivz-red': '#cc0000',
+                        'studivz-light-red': '#ff6666',
+                        'studivz-dark-red': '#990000'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 text-xs font-sans">
+    <header class="bg-gradient-to-b from-red-400 to-studivz-red h-20 relative border-b-2 border-studivz-dark-red">
+        <div class="absolute left-2 top-2">
+            <h1 class="text-white text-2xl"><span class="font-bold">ACADEMIA</span>VERZEICHNIS</span></h1>
+        </div>
+
+        <nav class="absolute right-5 top-2 text-white text-xs">
+            <a href="#" class="hover:underline ml-4">suche</a>
+            <a href="#" class="hover:underline ml-4">einladen</a>
+            <a href="#" class="hover:underline ml-4">hilfe</a>
+            <a href="#" class="hover:underline ml-4">klartext</a>
+            <a href="#" class="hover:underline ml-4">boutique</a>
+            <a href="#" class="hover:underline ml-4">einstieg</a>
+            <a href="#" class="hover:underline ml-4">raus hier</a>
+        </nav>
+    </header>
+
+    <div class="max-w-6xl mx-auto flex gap-2 p-2">
+        <aside class="w-48 bg-white border border-gray-300">
+            <div class="border-b border-gray-300">
+                <div class="bg--to-b from-studivz-light-red to-studivz-red text-white px-2 py-1 text-xs font-bold">
+                    GRUPPENVERZEICHNIS
+                </div>
+                <div class="p-2 space-y-1">
+                    <a href="#" class="block text-studivz-red hover:underline text-xs">Coding Enthusiasts HSG</a>
+                </div>
+            </div>
+
+            <div class="border-b border-gray-300">
+                <div class="bg-gradient-to-b from-studivz-light-red to-studivz-red text-white px-2 py-1 text-xs font-bold">
+                    Gruppen suchen
+                </div>
+                <div class="p-2">
+                    <input type="text" class="w-full border border-gray-300 px-1 py-1 text-xs" placeholder="Gruppenname...">
+                </div>
+            </div>
+
+            <div class="border-b border-gray-300">
+                <div class="p-2 space-y-1">
+                    <a href="#" class="block text-studivz-red hover:underline text-xs">Start (Gruppe)</a>
+                    <a href="#" class="block text-studivz-red hover:underline text-xs">Diskussionen</a>
+                    <a href="#" class="block text-studivz-red hover:underline text-xs">Fotos der Gruppe</a>
+                    <a href="#" class="block text-studivz-red hover:underline text-xs">Gruppenmitglieder</a>
+                    <a href="#" class="block text-studivz-red hover:underline text-xs">Nachrichten an Gruppe</a>
+                    <a href="#" class="block text-studivz-red hover:underline text-xs">Gruppe bearbeiten</a>
+                </div>
+            </div>
+
+            <div class="border-b border-gray-300">
+                <div class="p-2">
+                    <div class="flex items-center gap-2 mb-1">
+                        <div class="w-5 h-5 bg-studivz-red rounded-full"></div>
+                        <span class="text-xs font-bold">academiaVZ</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-600">
+                        <div class="w-5 h-5 bg-gray-600 rounded"></div>
+                        <span class="text-xs cursor-pointer hover:text-studivz-red" onclick="alert('Das neue academiaVZ ist noch nicht verfügbar! 🚧')">neues academiaVZ</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="flex-1 bg-white border border-gray-300">
+            <div class="bg-yellow-100 border border-yellow-400 p-1 text-center text-xs mb-2">
+                Gruppe aktiv (Letzte Aktivität: <span id="last-update"></span>)
+            </div>
+
+            <div class="p-2 flex gap-4">
+                <div class="w-48 flex-shrink-0">
+                    <img src="https://images.unsplash.com/photo-1549490349-f834d8bd174a?w=200&h=200&fit=crop"
+                         alt="Group Logo" class="w-full border border-gray-300">
+
+                    <div class="mt-2 text-xs space-y-1">
+                        <a href="#" class="block text-studivz-red hover:underline">Gruppenbild ändern</a>
+                        <a href="#" class="block text-studivz-red hover:underline">Fotos hinzufügen</a>
+                        <a href="#" class="block text-studivz-red hover:underline">Gruppenregeln bearbeiten</a>
+                        <div class="text-studivz-red">145 Mitglieder</div>
+                        <a href="#" class="block text-studivz-red hover:underline">Mitglieder verwalten</a>
+                    </div>
+
+                    <div class="mt-4 bg-gradient-to-b from-red-400 to-studivz-red text-white text-center py-8 cursor-pointer hover:opacity-90">
+                        <div class="text-lg font-bold">Gruppe beitreten!</div>
+                        </div>
+
+                    <div class="mt-4 border border-gray-300">
+                        <div class="bg-gradient-to-b from-red-300 to-studivz-light-red text-studivz-dark-red px-2 py-1 text-xs font-bold">
+                            Gruppenmitglieder (145)
+                        </div>
+                        <div class="p-2 text-xs">
+                            <div class="mb-2">145 Mitglieder in dieser Gruppe</div>
+                            <div class="grid grid-cols-3 gap-1">
+                                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b977?w=40&h=40&fit=crop&crop=face" class="w-10 h-10 border border-gray-300">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" class="w-10 h-10 border border-gray-300">
+                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face" class="w-10 h-10 border border-gray-300">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" class="w-10 h-10 border border-gray-300">
+                                <img src="https://images.unsplash.com/photo-1554126806-a14ec84a7cc3?w=40&h=40&fit=crop&crop=face" class="w-10 h-10 border border-gray-300">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=40&h=40&fit=crop&crop=face" class="w-10 h-10 border border-gray-300">
+                            </div>
+                            <div class="mt-2 text-center">
+                                <a href="#" class="text-studivz-red hover:underline">Alle Mitglieder anzeigen</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-1">
+                    <div class="mb-4">
+                        <div class="bg-gradient-to-b from-red-200 to-studivz-light-red text-studivz-dark-red px-2 py-1 text-xs font-bold border border-studivz-light-red mb-1">
+                            Gruppeninformation <a href="#" class="font-normal hover:underline">[bearbeiten]</a>
+                        </div>
+                        <div class="bg-gray-50 p-2 border border-gray-300 text-xs">
+                            <table class="w-full">
+                                <tr><td class="text-gray-600 w-32">Gruppenname:</td><td>Coding Enthusiasts HSG</td></tr>
+                                <tr><td class="text-gray-600">Beschreibung:</td><td>Treffpunkt für alle programmierbegeisterten Studenten der Uni St.Gallen!</td></tr>
+                                <tr><td class="text-gray-600">Erstellt am:</td><td>15.01.2024</td></tr>
+                                <tr><td class="text-gray-600">Admin:</td><td class="text-studivz-red">Dario Süter</td></tr>
+                                <tr><td class="text-gray-600">Typ:</td><td>Offen (Jeder kann beitreten)</td></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="bg-gradient-to-b from-red-200 to-studivz-light-red text-studivz-dark-red px-2 py-1 text-xs font-bold border border-studivz-light-red mb-1">
+                            Über diese Gruppe <a href="#" class="font-normal hover:underline">[bearbeiten]</a>
+                        </div>
+                        <div class="bg-gray-50 p-2 border border-gray-300 text-xs cursor-pointer hover:bg-gray-100" onclick="editInfo(this)">
+                            <em>"Hier können wir uns über Programmierprojekte austauschen, Lerngruppen bilden, Events planen und uns gegenseitig unterstützen. Seid nett zueinander und teilt euer Wissen!"</em>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="bg-gradient-to-b from-red-200 to-studivz-light-red text-studivz-dark-red px-2 py-1 text-xs font-bold border border-studivz-light-red mb-1">
+                            Neueste Diskussionen <a href="#" class="font-normal hover:underline">[alle ansehen]</a>
+                        </div>
+                        <div class="bg-gray-50 p-2 border border-gray-300 text-xs">
+                            <div class="mb-2 pb-2 border-b border-gray-200">
+                                <strong>Thema: Suche Co-Founder für Startup-Projekt</strong> <span class="text-gray-600">- von Max Mustermann (Gestern)</span><br>
+                                <span class="text-gray-700 italic">"Hey Leute, ich habe eine Idee für eine..."</span>
+                            </div>
+                            <div class="pb-2 border-b border-gray-200">
+                                <strong>Thema: Python Crashkurs am Dienstag?</strong> <span class="text-gray-600">- von Lisa Schmitt (Heute)</span><br>
+                                <span class="text-gray-700 italic">"Wer wäre dabei für einen kleinen Python..."</span>
+                            </div>
+                            <div class="mt-2 text-center">
+                                <a href="#" class="text-studivz-red hover:underline">Neue Diskussion starten</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-300 mt-4">
+                <div class="bg-gradient-to-b from-red-200 to-studivz-light-red text-studivz-dark-red px-2 py-1 text-xs font-bold">
+                    Neueste Gruppenaktivitäten
+                </div>
+                <div class="max-h-64 overflow-y-auto bg-gray-50 border border-gray-300" id="timeline">
+                    <div class="border-b border-gray-200 p-2">
+                        <div class="text-gray-600 text-xs mb-1">Heute, 14:23</div>
+                        <div class="text-xs"><strong>Anna Mueller</strong> hat ein neues Foto in der Gruppe hochgeladen.</div>
+                        <div class="mt-1 text-xs">
+                            <a href="#" class="text-studivz-red hover:underline mr-2">kommentieren</a> |
+                            <a href="#" class="text-studivz-red hover:underline">gefällt mir</a>
+                        </div>
+                    </div>
+
+                    <div class="border-b border-gray-200 p-2">
+                        <div class="text-gray-600 text-xs mb-1">Gestern, 22:15</div>
+                        <div class="text-xs"><strong>Jan Schmidt</strong> hat eine neue Diskussion gestartet: "Brauche Hilfe bei Java-Projekt!"</div>
+                        <div class="mt-1 text-xs">
+                            <a href="#" class="text-studivz-red hover:underline">zur Diskussion</a>
+                        </div>
+                    </div>
+
+                    <div class="border-b border-gray-200 p-2">
+                        <div class="text-gray-600 text-xs mb-1">Mo, 18.07. 16:42</div>
+                        <div class="text-xs"><strong>Max Mustermann</strong> ist der Gruppe beigetreten.</div>
+                        <div class="mt-2">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" class="border border-gray-300">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <aside class="w-48 bg-white border border-gray-300">
+            <div class="border-b border-gray-300">
+                <div class="bg-gradient-to-b from-studivz-light-red to-studivz-red text-white px-2 py-1 text-xs font-bold">
+                    Gruppen-Fotoalben (5)
+                </div>
+                <div class="p-2 grid grid-cols-3 gap-1">
+                    <div class="text-center text-xs cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=60&h=40&fit=crop" class="w-full border border-gray-300 mb-1">
+                        <div>Coding Meetup</div>
+                        <div class="text-gray-600">(15)</div>
+                    </div>
+                    <div class="text-center text-xs cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=60&h=40&fit=crop" class="w-full border border-gray-300 mb-1">
+                        <div>Hackathon 2024</div>
+                        <div class="text-gray-600">(22)</div>
+                    </div>
+                    <div class="text-center text-xs cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=60&h=40&fit=crop" class="w-full border border-gray-300 mb-1">
+                        <div>Study Sessions</div>
+                        <div class="text-gray-600">(8)</div>
+                    </div>
+                    <div class="col-span-3 text-center text-gray-600 pt-1 text-xs cursor-pointer hover:text-studivz-red">
+                        ... und 2 weitere Alben
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="bg-gradient-to-b from-studivz-light-red to-studivz-red text-white px-2 py-1 text-xs font-bold">
+                    Apps
+                </div>
+                <div class="p-2">
+                    <img src="https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=180&h=100&fit=crop"
+                         class="w-full cursor-pointer hover:opacity-80" alt="App placeholder">
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // Minimal click dummy functionality for "Über mich" (now "Über diese Gruppe")
+        function editInfo(element) {
+            if (element.querySelector('textarea')) return; // Already editing
+
+            const originalContent = element.innerHTML;
+            const textValue = element.textContent.trim().replace(/^"|"$/g, '').replace(/<em[^>]*>|<\/em>/g, '');
+
+            element.innerHTML = `
+                <textarea class="w-full h-16 p-1 text-xs border border-gray-300 font-sans">${textValue}</textarea>
+                <div class="mt-2">
+                    <button onclick="saveInfo(this, '${textValue.replace(/'/g, "\\'")}')" class="bg-studivz-red text-white px-2 py-1 text-xs cursor-pointer mr-2">Speichern</button>
+                    <button onclick="cancelEdit(this, \`${originalContent.replace(/`/g, '\\`')}\`)" class="bg-gray-400 text-white px-2 py-1 text-xs cursor-pointer">Abbrechen</button>
+                </div>
+            `;
+            element.querySelector('textarea').focus();
+        }
+
+        function saveInfo(button, originalText) {
+            const container = button.closest('.bg-gray-50');
+            const textarea = container.querySelector('textarea');
+            const newText = textarea.value.trim() === '' ? originalText : textarea.value.trim();
+            container.innerHTML = `<em>"${newText}"</em>`;
+
+            const feedback = document.createElement('div');
+            feedback.className = 'fixed top-20 right-4 bg-green-500 text-white px-4 py-2 rounded text-xs z-50';
+            feedback.textContent = 'Info gespeichert! ✅';
+            document.body.appendChild(feedback);
+            setTimeout(() => feedback.remove(), 2000);
+        }
+
+        function cancelEdit(button, originalContent) {
+            button.closest('.bg-gray-50').innerHTML = originalContent;
+        }
+
+        // Update timestamp on load
+        document.getElementById('last-update').textContent = new Date().toLocaleDateString('de-DE');
+
+        // Add some nostalgic console flavor
+        console.log('🎉 academiaVZ Group Page loaded! Welcome to the community!');
+        console.log('👉 Join discussions and share your knowledge!');
+    </script>
+</body>
+</html>
