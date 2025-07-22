@@ -535,13 +535,11 @@
     window.addEventListener('load', async () => {
         await loadGalleryData();
         openGallery();
-        
-        // Show all mobile sections by default on desktop
-        if (window.innerWidth >= 768) {
+
             ['groupDir', 'groupSearch', 'members', 'photoAlbums'].forEach(id => {
                 document.getElementById(id).classList.add('open');
             });
-        }
+
     });
   
     </script>
