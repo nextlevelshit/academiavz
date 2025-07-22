@@ -19,10 +19,13 @@
         }
     </script>
     <style>
-        /* Nostalgic early 2000s styles */
         body {
-            font-family: Verdana, Arial, sans-serif;
+            font-family: Helvetica, "Sergeo UI", Arial, sans-serif;
             font-size: 11px;
+        }
+        
+        img {
+          image-orientation: from-image;
         }
         
         .gradient-header {
@@ -35,15 +38,6 @@
         
         .gradient-light {
             background: linear-gradient(to bottom, #ffe6e6 0%, #ffcccc 100%);
-        }
-        
-        .table-style {
-            border-collapse: collapse;
-        }
-        
-        .table-style td {
-            border-bottom: 1px dotted #ccc;
-            padding: 2px 0;
         }
         
         .studivz-button {
@@ -64,9 +58,7 @@
             text-decoration: none;
         }
 
-        /* Dialog and Gallery styles */
         dialog {
-            border: 2px solid #990000;
             border-radius: 0;
             box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
         }
@@ -86,24 +78,41 @@
             object-fit: contain;
         }
 
-        /* Focus indicators for accessibility */
+        /* Remove focus ring - replaced with subtle highlight */
         button:focus, 
         a:focus,
         .focusable:focus {
-            outline: 2px solid #ff4444;
-            outline-offset: 2px;
+            background-color: rgba(255, 255, 255, 0.1);
+            outline: none;
         }
 
-        /* Mobile-specific adjustments */
+        /* Mobile collapsible sections */
+        .mobile-collapsible {
+            cursor: pointer;
+        }
+
+        .mobile-content {
+            display: none;
+        }
+
+        .mobile-content.open {
+            display: block;
+        }
+
+        /* Mobile nav toggle */
+        .mobile-nav {
+            display: none;
+        }
+
+        .mobile-nav.open {
+            display: block;
+        }
+
         @media (max-width: 768px) {
             body {
-                font-size: 12px; /* Slightly larger for mobile readability */
+                font-size: 12px;
             }
             
-            .mobile-nav-toggle {
-                display: block;
-            }
-
             .gallery-image {
                 max-width: 95vw;
                 max-height: 80vh;
@@ -126,14 +135,14 @@
         </div>
     </dialog>
 
-    <!-- Header with classic gradient - responsive navigation -->
+    <!-- Header -->
     <header class="gradient-header h-16 md:h-20 relative border-b-2 border-studivz-dark-red">
         <div class="absolute left-2 top-1 md:top-2">
             <h1 class="text-white text-lg md:text-2xl"><span class="font-bold">ACADEMIA</span>VERZEICHNIS</h1>
         </div>
 
         <!-- Mobile menu toggle -->
-        <button class="md:hidden absolute right-2 top-3 text-white text-sm">
+        <button onclick="toggleMobileNav()" class="md:hidden absolute right-2 top-3 text-white text-sm">
             ☰ Menu
         </button>
 
@@ -149,41 +158,40 @@
         </nav>
 
         <!-- Mobile navigation dropdown -->
-        <nav class="hidden md:hidden absolute top-12 right-2 bg-studivz-dark-red text-white text-xs p-2 border border-white">
+        <nav id="mobileNav" class="mobile-nav absolute top-12 right-2 bg-studivz-dark-red text-white text-xs p-2 border border-white z-10">
             <a href="#" class="block hover:underline py-1">suche</a>
             <a href="#" class="block hover:underline py-1">einladen</a>
             <a href="#" class="block hover:underline py-1">hilfe</a>
             <a href="#" class="block hover:underline py-1">klartext</a>
             <a href="#" class="block hover:underline py-1">boutique</a>
-            <a href="#" class="block hover:underline py-1">einstigung</a>
+            <a href="#" class="block hover:underline py-1">einstieg</a>
             <a href="#" class="block hover:underline py-1">raus hier</a>
         </nav>
     </header>
 
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-2 p-2">
-        <!-- Left Sidebar - stacks on top on mobile -->
+        <!-- Left Sidebar -->
         <aside class="w-full md:w-48 bg-white border border-gray-400 order-1 md:order-1">
-            <!-- Mobile: Show as collapsible sections -->
             <div class="border-b border-gray-300">
-                <div class="gradient-section text-studivz-dark-red px-2 py-1 text-xs font-bold border-b border-gray-400">
-                    GRUPPENVERZEICHNIS <span class="md:hidden float-right">▼</span>
+                <div class="gradient-section text-studivz-dark-red px-2 py-1 text-xs font-bold border-b border-gray-400 mobile-collapsible" onclick="toggleMobileSection('groupDir')">
+                    GRUPPENVERZEICHNIS <span class="md:hidden float-right" id="groupDirArrow">▼</span>
                 </div>
-                <div class="hidden md:block p-2 space-y-1 bg-gray-50">
+                <div id="groupDir" class="p-2 space-y-1 bg-gray-50 mobile-content">
                     <a href="#" class="block text-studivz-red hover:underline text-xs">Academia de la vida</a>
                 </div>
             </div>
 
             <div class="border-b border-gray-300">
-                <div class="gradient-section text-studivz-dark-red px-2 py-1 text-xs font-bold border-b border-gray-400">
-                    Gruppen suchen <span class="md:hidden float-right">▼</span>
+                <div class="gradient-section text-studivz-dark-red px-2 py-1 text-xs font-bold border-b border-gray-400 mobile-collapsible" onclick="toggleMobileSection('groupSearch')">
+                    Gruppen suchen <span class="md:hidden float-right" id="groupSearchArrow">▼</span>
                 </div>
-                <div class="hidden md:block p-2 bg-gray-50">
+                <div id="groupSearch" class="p-2 bg-gray-50 mobile-content">
                     <input type="text" class="w-full border border-gray-400 px-1 py-1 text-xs bg-white" placeholder="Gruppenname...">
                 </div>
             </div>
 
             <div class="border-b border-gray-300 bg-gray-50">
-                <div class="hidden md:block p-2 space-y-1">
+                <div class="p-2 space-y-1 hidden md:block">
                     <a href="#" class="block text-studivz-red hover:underline text-xs">Start (Gruppe)</a>
                     <a href="#" class="block text-studivz-red hover:underline text-xs">Diskussionen</a>
                     <a href="#" class="block text-studivz-red hover:underline text-xs">Fotos der Gruppe</a>
@@ -191,7 +199,6 @@
                     <a href="#" class="block text-studivz-red hover:underline text-xs">Nachrichten an Gruppe</a>
                     <a href="#" class="block text-studivz-red hover:underline text-xs">Gruppe bearbeiten</a>
                 </div>
-                <!-- Mobile: Horizontal scroll for navigation -->
                 <div class="md:hidden p-2 overflow-x-auto">
                     <div class="flex space-x-4 text-nowrap">
                         <a href="#" class="text-studivz-red hover:underline text-xs">Start</a>
@@ -204,12 +211,11 @@
             </div>
         </aside>
 
-        <!-- Main Content - responsive width -->
+        <!-- Main Content -->
         <main class="flex-1 bg-white border border-gray-400 order-2 md:order-2">
             <div class="p-2 flex flex-col md:flex-row gap-4">
-                <!-- Group image and controls - stacks on mobile -->
                 <div class="w-full md:w-48 flex-shrink-0">
-                    <img src="assets/group-logo.jpg"
+                    <img src="assets/group-logo.webp"
                          alt="Group Logo" class="w-full md:w-48 border-2 border-gray-400 mx-auto cursor-pointer hover:opacity-80" onclick="openGallery(0)">
 
                     <div class="mt-2 text-xs space-y-1 bg-gray-50 p-2 border border-gray-300">
@@ -222,25 +228,24 @@
                         <a href="#" class="block text-studivz-red hover:underline">Mitglieder verwalten</a>
                     </div>
 
-                    <!-- Classic join button with gradient -->
                     <div class="mt-4 studivz-button py-2 cursor-pointer hover:opacity-90">
                         <div class="font-bold">Gruppe beitreten!</div>
                     </div>
 
-                    <!-- Members section - collapsible on mobile -->
+                    <!-- Members section -->
                     <div class="mt-4 border border-gray-400">
-                        <div class="gradient-section text-studivz-dark-red px-2 py-1 text-xs font-bold border-b border-gray-400">
-                            Gruppenmitglieder (13) <span class="md:hidden float-right">▼</span>
+                        <div class="gradient-section text-studivz-dark-red px-2 py-1 text-xs font-bold border-b border-gray-400 mobile-collapsible" onclick="toggleMobileSection('members')">
+                            Gruppenmitglieder (13) <span class="md:hidden float-right" id="membersArrow">▼</span>
                         </div>
-                        <div class="hidden md:block p-2 text-xs bg-gray-50">
+                        <div id="members" class="p-2 text-xs bg-gray-50 mobile-content">
                             <div class="mb-2">13 Mitglieder in dieser Gruppe</div>
                             <div class="grid grid-cols-6 md:grid-cols-3 gap-1">
-                                <img src="https://images.unsplash.com/photo-1494790108755-2616b612b977?w=40&h=40&fit=crop&crop=face" class="w-8 md:w-10 h-8 md:h-10 border border-gray-400">
-                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" class="w-8 md:w-10 h-8 md:h-10 border border-gray-400">
-                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=40&h=40&fit=crop&crop=face" class="w-8 md:w-10 h-8 md:h-10 border border-gray-400">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" class="w-8 md:w-10 h-8 md:h-10 border border-gray-400">
-                                <img src="https://images.unsplash.com/photo-1554126806-a14ec84a7cc3?w=40&h=40&fit=crop&crop=face" class="w-8 md:w-10 h-8 md:h-10 border border-gray-400">
-                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=40&h=40&fit=crop&crop=face" class="w-8 md:w-10 h-8 md:h-10 border border-gray-400">
+                                <img src="assets/profiles/1.png" class="w-8 md:w-10 h-8 md:h-10 border border-gray-400">
+                                <img src="assets/profiles/2.png" class="w-8 md:w-10 h-8 md:h-10 border border-gray-400">
+                                <img src="assets/profiles/3.png" class="w-8 md:w-10 h-8 md:h-10 border border-gray-400">
+                                <img src="assets/profiles/4.png" class="w-8 md:w-10 h-8 md:h-10 border border-gray-400">
+                                <img src="assets/profiles/5.png" class="w-8 md:w-10 h-8 md:h-10 border border-gray-400">
+                                <img src="assets/profiles/6.png" class="w-8 md:w-10 h-8 md:h-10 border border-gray-400">
                             </div>
                             <div class="mt-2 text-center">
                                 <a href="#" class="text-studivz-red hover:underline">Alle Mitglieder anzeigen</a>
@@ -250,17 +255,17 @@
                 </div>
 
                 <div class="flex-1">
-                    <!-- Group Info with classic table styling - responsive table -->
+                    <!-- Group Info -->
                     <div class="mb-4">
                         <div class="gradient-light text-studivz-dark-red px-2 py-1 text-xs font-bold border border-gray-400 mb-1">
                             Gruppeninformation <a href="#" class="font-normal hover:underline">[bearbeiten]</a>
                         </div>
                         <div class="bg-gray-50 p-2 border border-gray-400 text-xs overflow-x-auto">
-                            <table class="w-full table-style">
-                                <tr><td class="text-gray-600 w-20 md:w-32">Gruppenname:</td><td>Academia de la vida</td></tr>
-                                <tr><td class="text-gray-600">Beschreibung:</td><td>Schule des Lebens mitten in Plüderhausen (Baden-Württemberg)</td></tr>
-                                <tr><td class="text-gray-600">Erstellt am:</td><td>15.01.2015</td></tr>
-                                <tr><td class="text-gray-600">Admin:</td><td class="text-studivz-red">Freddy Weller</td></tr>
+                            <table class="w-full">
+                                <tr><td class="text-gray-600 w-20 md:w-32 border-b border-dotted border-gray-300 py-1">Gruppenname:</td><td class="border-b border-dotted border-gray-300 py-1">Academia de la vida</td></tr>
+                                <tr><td class="text-gray-600 border-b border-dotted border-gray-300 py-1">Beschreibung:</td><td class="border-b border-dotted border-gray-300 py-1">Schule des Lebens mitten in Plüderhausen (Baden-Württemberg)</td></tr>
+                                <tr><td class="text-gray-600 border-b border-dotted border-gray-300 py-1">Erstellt am:</td><td class="border-b border-dotted border-gray-300 py-1">15.01.2015</td></tr>
+                                <tr><td class="text-gray-600 border-b border-dotted border-gray-300 py-1">Admin:</td><td class="text-studivz-red border-b border-dotted border-gray-300 py-1">Freddy Weller</td></tr>
                                 <tr><td class="text-gray-600">Typ:</td><td>Offen (Jeder kann beitreten)</td></tr>
                             </table>
                         </div>
@@ -272,11 +277,11 @@
                             Über diese Gruppe <a href="#" class="font-normal hover:underline">[bearbeiten]</a>
                         </div>
                         <div class="bg-gray-50 p-2 border border-gray-400 text-xs cursor-pointer hover:bg-gray-100">
-                            <em>"Hier können wir uns über Programmierprojekte austauschen, Lerngruppen bilden, Events planen und uns gegenseitig unterstützen. Seid nett zueinander und teilt euer Wissen!"</em>
+                            <em>"Ein bunter Strauß an unterschiedlichsten Persönlichkeiten, die auf dem Schwäbischen Ländle ein Wohnprojekt ins Leben gerufen haben""</em>
                         </div>
                     </div>
 
-                    <!-- Discussions with classic styling -->
+                    <!-- Discussions -->
                     <div class="mb-4">
                         <div class="gradient-light text-studivz-dark-red px-2 py-1 text-xs font-bold border border-gray-400 mb-1">
                             Neueste Diskussionen <a href="#" class="font-normal hover:underline">[alle ansehen]</a>
@@ -284,11 +289,11 @@
                         <div class="bg-gray-50 p-2 border border-gray-400 text-xs">
                             <div class="mb-2 pb-2 border-b border-gray-300">
                                 <strong>Thema: Hat Eros wieder in den Flur gekackt?</strong> <span class="text-gray-600">- von Maria (Gestern)</span><br>
-                                <span class="text-gray-700 italic">"Alter Leute, wer war das diesmal..."</span>
+                                <span class="text-gray-700 italic">"Alter, ich mach das nicht wieder weg..."</span>
                             </div>
                             <div class="pb-2 border-b border-gray-300">
                                 <strong>Thema: Simon, morgen kommt die Schornsteinfegerin</strong> <span class="text-gray-600">- von Tim (Heute)</span><br>
-                                <span class="text-gray-700 italic">"Vergiss es nicht wieder wie letztes Mal..."</span>
+                                <span class="text-gray-700 italic">"Weißt du schon, was du anziehen wirst?"</span>
                             </div>
                             <div class="mt-2 text-center">
                                 <button class="studivz-button">Neue Diskussion starten</button>
@@ -298,12 +303,12 @@
                 </div>
             </div>
 
-            <!-- Activity Timeline with nostalgic styling -->
+            <!-- Activity Timeline -->
             <div class="border-t border-gray-400 mt-4">
                 <div class="gradient-light text-studivz-dark-red px-2 py-1 text-xs font-bold border-b border-gray-400">
                     Neueste Gruppenaktivitäten
                 </div>
-                <div class="max-h-64 overflow-y-auto bg-gray-50 border-b border-gray-400">
+                <div class="bg-gray-50 border-b border-gray-400">
                     <div class="border-b border-gray-300 p-2 hover:bg-gray-100">
                         <div class="text-gray-600 text-xs mb-1">Heute, 14:23</div>
                         <div class="text-xs"><strong>Valerie</strong> hat ein neues Foto in der Gruppe hochgeladen.</div>
@@ -314,7 +319,7 @@
                     </div>
 
                     <div class="border-b border-gray-300 p-2 hover:bg-gray-100">
-                        <div class="text-gray-600 text-xs mb-1">Gestern, 22:15</div>
+                        <div class="text-gray-600 text-xs mb-1">Gestern, 22:22</div>
                         <div class="text-xs"><strong>Jonny</strong> hat eine neue Diskussion gestartet: "Brauche morgen Hilfe beim Renovieren"</div>
                         <div class="mt-1 text-xs">
                             <button class="studivz-button">zur Diskussion</button>
@@ -322,39 +327,27 @@
                     </div>
 
                     <div class="border-b border-gray-300 p-2 hover:bg-gray-100">
-                        <div class="text-gray-600 text-xs mb-1">Mo, 18.07.2013 16:42</div>
-                        <div class="text-xs"><strong>Martin</strong> ist der Gruppe beigetreten.</div>
+                        <div class="text-gray-600 text-xs mb-1">Mo, 18.09.2016 12:34</div>
+                        <div class="text-xs"><strong>Timi</strong> ist der Gruppe beigetreten.</div>
                         <div class="mt-2">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" class="border border-gray-400">
+                            <img src="assets/profiles/1.png" class="w-12 h-12">
                         </div>
                     </div>
                 </div>
             </div>
         </main>
 
-        <!-- Right Sidebar - moves to bottom on mobile -->
+        <!-- Right Sidebar -->
         <aside class="w-full md:w-48 bg-white border border-gray-400 order-3 md:order-3">
             <div class="border-b border-gray-300">
-                <div class="gradient-section text-studivz-dark-red px-2 py-1 text-xs font-bold border-b border-gray-400">
-                    Gruppen-Fotoalben (47) <span class="md:hidden float-right">▼</span>
+                <div class="gradient-section text-studivz-dark-red px-2 py-1 text-xs font-bold border-b border-gray-400 mobile-collapsible" onclick="toggleMobileSection('photoAlbums')">
+                    Gruppen-Fotoalben (<span id="photoAlbumCount">47</span>) <span class="md:hidden float-right" id="photoAlbumsArrow">▼</span>
                 </div>
-                <div class="hidden md:block p-2 grid grid-cols-3 gap-1 bg-gray-50">
-                    <div class="text-center text-xs cursor-pointer hover:opacity-80" onclick="openGallery(0)">
-                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=60&h=40&fit=crop" class="w-full border border-gray-400 mb-1" alt="Academia Party">
-                        <div>03.05.2013 Academia Party</div>
-                        <div class="text-gray-600">(15)</div>
+                <div id="photoAlbums" class="p-2 bg-gray-50 mobile-content">
+                    <div id="photoAlbumsGrid" class="grid grid-cols-1 md:grid-cols-1 gap-1">
+                        <!-- Dynamic content loaded from JSON -->
                     </div>
-                    <div class="text-center text-xs cursor-pointer hover:opacity-80" onclick="openGallery(1)">
-                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=60&h=40&fit=crop" class="w-full border border-gray-400 mb-1" alt="Fotoshoot">
-                        <div>24.06.2017 Fotoshoot mit Hot Boy Martini</div>
-                        <div class="text-gray-600">(22)</div>
-                    </div>
-                    <div class="text-center text-xs cursor-pointer hover:opacity-80" onclick="openGallery(2)">
-                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=60&h=40&fit=crop" class="w-full border border-gray-400 mb-1" alt="Sommerfest">
-                        <div>23.07.2017 Sommerfest Academia</div>
-                        <div class="text-gray-600">(8)</div>
-                    </div>
-                    <div class="col-span-3 text-center pt-1 text-xs">
+                    <div class="col-span-full text-center pt-1 text-xs mt-2">
                         <button class="studivz-button" onclick="openGallery(0)">mehr anzeigen</button>
                     </div>
                 </div>
@@ -363,40 +356,100 @@
     </div>
 
     <script>
-    // Extensible image gallery array - add more images here
-    const galleryImages = [
-        {
-            src: 'assets/group-logo.jpg',
-            title: '03.05.2013 Academia Party',
-            alt: 'Academia Party Foto'
-        },
-        {
-            src: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=800&fit=crop',
-            title: '24.06.2017 Fotoshoot mit Hot Boy Martini',
-            alt: 'Fotoshoot Foto'
-        },
-        {
-            src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop',
-            title: '23.07.2017 Sommerfest Academia',
-            alt: 'Sommerfest Foto'
-        },
-        {
-            src: 'https://images.unsplash.com/photo-1540553016722-983e48a2cd10?w=1200&h=800&fit=crop',
-            title: '12.08.2017 Grillabend auf der Terrasse',
-            alt: 'Grillabend Foto'
-        },
-        {
-            src: 'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=1200&h=800&fit=crop',
-            title: '05.09.2017 Coding Workshop',
-            alt: 'Workshop Foto'
-        }
-    ];
-
+    // Global state
+    let galleryData = [];
     let currentImageIndex = 0;
+    let currentGallery = 0;
 
-    // Gallery functionality
-    function openGallery(index = 0) {
-        currentImageIndex = index;
+    // Load gallery data from JSON
+    async function loadGalleryData() {
+        try {
+            const response = await fetch('/assets/academia.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            galleryData = data.galleries || [];
+            
+            // Update UI with loaded data
+            updatePhotoAlbumsSection();
+            
+        } catch (error) {
+            console.log('JSON not found or invalid, using fallback data:', error);
+            // Fallback data structure
+            galleryData = [
+                {
+                    title: "03.05.2013 Academia Party",
+                    date: "03.05.2013", 
+                    images: [
+                        {
+                            src: "assets/group-logo.jpg",
+                            alt: "Academia Party Foto"
+                        },
+                                                {
+                            src: "assets/group-logo.webp",
+                            alt: "Academia Party Foto"
+                        }
+                    ]
+                },
+                {
+                    title: "24.06.2017 Fotoshoot mit Hot Boy Martini", 
+                    date: "24.06.2017",
+                    images: [
+                        {
+                            src: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=800&fit=crop",
+                            alt: "Fotoshoot Foto"
+                        }
+                    ]
+                },
+                {
+                    title: "23.07.2017 Sommerfest Academia",
+                    date: "23.07.2017", 
+                    images: [
+                        {
+                            src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop",
+                            alt: "Sommerfest Foto"
+                        }
+                    ]
+                }
+            ];
+            updatePhotoAlbumsSection();
+        }
+    }
+
+    // Update photo albums section with loaded data
+    function updatePhotoAlbumsSection() {
+        const grid = document.getElementById('photoAlbumsGrid');
+        const counter = document.getElementById('photoAlbumCount');
+        
+        // Calculate total image count
+        const totalImages = galleryData.reduce((sum, gallery) => sum + gallery.images.length, 0);
+        counter.textContent = totalImages;
+        
+        // Generate album thumbnails
+        grid.innerHTML = galleryData.map((gallery, galleryIndex) => {
+            const firstImage = gallery.images[0];
+            const thumbnailSrc = firstImage.src.includes('unsplash') 
+                ? firstImage.src.replace(/w=\d+&h=\d+/, 'w=60&h=40')
+                : firstImage.src;
+                
+            return `
+                <div class="text-center text-xs cursor-pointer hover:opacity-80" onclick="openGallery(${galleryIndex}, 0)">
+                    <img src="${thumbnailSrc}" class="w-full border border-gray-400 mb-1" alt="${gallery.title}">
+                    <div>${gallery.title}</div>
+                    <div class="text-gray-600">(${gallery.images.length})</div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // Gallery functionality - enhanced for multiple galleries
+    function openGallery(galleryIndex = 0, imageIndex = 0) {
+        if (!galleryData[galleryIndex]) return;
+        
+        currentGallery = galleryIndex;
+        currentImageIndex = imageIndex;
         updateGalleryImage();
         document.getElementById('galleryDialog').showModal();
     }
@@ -406,28 +459,56 @@
     }
 
     function nextImage() {
-        currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+        const currentGalleryData = galleryData[currentGallery];
+        if (!currentGalleryData) return;
+        
+        currentImageIndex = (currentImageIndex + 1) % currentGalleryData.images.length;
         updateGalleryImage();
     }
 
     function previousImage() {
-        currentImageIndex = currentImageIndex === 0 ? galleryImages.length - 1 : currentImageIndex - 1;
+        const currentGalleryData = galleryData[currentGallery];
+        if (!currentGalleryData) return;
+        
+        currentImageIndex = currentImageIndex === 0 ? 
+            currentGalleryData.images.length - 1 : 
+            currentImageIndex - 1;
         updateGalleryImage();
     }
 
     function updateGalleryImage() {
+        const currentGalleryData = galleryData[currentGallery];
+        if (!currentGalleryData) return;
+        
         const image = document.getElementById('galleryImage');
         const title = document.getElementById('galleryTitle');
         const counter = document.getElementById('galleryCounter');
         
-        const currentImage = galleryImages[currentImageIndex];
+        const currentImage = currentGalleryData.images[currentImageIndex];
         image.src = currentImage.src;
         image.alt = currentImage.alt;
-        title.textContent = currentImage.title;
-        counter.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
+        title.textContent = currentGalleryData.title;
+        counter.textContent = `${currentImageIndex + 1} / ${currentGalleryData.images.length}`;
     }
 
-    // Keyboard navigation for gallery
+    // Mobile functionality
+    function toggleMobileNav() {
+        const nav = document.getElementById('mobileNav');
+        nav.classList.toggle('open');
+    }
+
+    function toggleMobileSection(sectionId) {
+        // Only on mobile
+        if (window.innerWidth >= 768) return;
+        
+        const content = document.getElementById(sectionId);
+        const arrow = document.getElementById(sectionId + 'Arrow');
+        
+        content.classList.toggle('open');
+        arrow.textContent = content.classList.contains('open') ? '▲' : '▼';
+    }
+
+    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
         const gallery = document.getElementById('galleryDialog');
         if (gallery.open) {
@@ -445,10 +526,19 @@
         }
     });
 
-    // Open gallery on load
-    window.addEventListener('load', () => {
-        openGallery(0);
+    // Initialize on load
+    window.addEventListener('load', async () => {
+        await loadGalleryData();
+        openGallery();
+        
+        // Show all mobile sections by default on desktop
+        if (window.innerWidth >= 768) {
+            ['groupDir', 'groupSearch', 'members', 'photoAlbums'].forEach(id => {
+                document.getElementById(id).classList.add('open');
+            });
+        }
     });
+  
     </script>
 </body>
 </html>
